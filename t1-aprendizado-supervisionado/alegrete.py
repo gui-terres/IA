@@ -1,5 +1,9 @@
 import numpy as np
 
+def min_max_normalization(data):
+    return (data - data.min()) / (data.max() - data.min())
+
+
 def compute_mse(b, w, data):
     land_area = data.iloc[:, 0]
     real_land_price = data.iloc[:, 1]
