@@ -5,3 +5,4 @@ Turma: A
     - b, w = 0
     - alpha = 0.01
     - num_iterations = 1500
+    - Melhor Erro Quadrático Médio: 6.487160580246779
