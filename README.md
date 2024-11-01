@@ -22,15 +22,20 @@ Turma: A
     Contém imagens coloridas 32px por 32px. Esse aumento na resolução e cores, já torna o dataset bem mais complexo que os anteriores. Possui também 10 classes, porém essas classes possuem características bem diferentes entre si. 
     
     4- Cifar100 (Mais complexo)
-    É o mais complexo, pois possui 100 classes bem variadas e todas coloridas.
+    É o mais complexo, pois possui 100 classes bem variadas e todas coloridas. Com resolução 32px por 32px.
 
    2)
     MNIST - Maior Acuracia = 97,54%
-    Estruturado da seguinte forma - 1 rede convolucional com 32 filtros e 1 max pooling e rede neural com somente uma camada com 64 neurônios
+    Estruturado da seguinte forma - 1 rede convolucional com 32 filtros e 1 max pooling e rede neural com somente uma camada com 64 neurônios.
+    Em média, esse dataset possuiu uma acuracia bem alta, devido a sua simplicidade, porém teve sua menor acuracia quando nao teve rede convolucional nem maxpooling e somente uma camada de 16 neuronios.
 
     Fashion MNIST - Maior Acuracia = 97,57%
     Estruturado da seguinte forma -  1 rede convolucional com 32 filtros e 1 max pooling e rede neural com somente 12 neurônios.
+   Da mesma forma que o MNIST, teve uma acuracia alta quando possuia pelo menos uma rede convolucional e maxpooling. E sua pior acuracia foi com 81,77%, utilizando somente uma camada de 16 neurônios.
 
-     Cifar10 - Maior Acuracia = 57.83% - 1 rede convolucional com 32 filtros e 1 max pooling e rede neural com 4 camadas de 32 neurônios
+     Cifar10 - Maior Acuracia = 57.83% - 1 rede convolucional com 32 filtros e 1 max pooling e rede neural com 4 camadas de 32 neurônios.
+
+   Cifar100 - Maior Acuracia = 62.62% - 3 redes convolucionais com 32 filtros e 3 max poolings e rede neural com 1 camda de 64 neurôncios.
+   Teve uma acuracia maior que o Cifar10, apesar de ser um dataset bem mais complexo, devido a utilização de 3 redes de convoluções e max poolings
 
 
