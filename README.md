@@ -26,8 +26,11 @@ Turma: A
 
    2)
     MNIST - Maior Acuracia = 97,54%
+    Estruturado da seguinte forma - 1 rede convolucional com 32 filtros e 1 max pooling e rede neural com somente uma camada com 64 neurônios
 
     Fashion MNIST - Maior Acuracia = 97,57%
+    Estruturado da seguinte forma -  1 rede convolucional com 32 filtros e 1 max pooling e rede neural com somente 12 neurônios.
 
-   Cifar10 - Maior Acuracia = 
+     Cifar10 - Maior Acuracia = 57.83% - 1 rede convolucional com 32 filtros e 1 max pooling e rede neural com 4 camadas de 32 neurônios
+
 
