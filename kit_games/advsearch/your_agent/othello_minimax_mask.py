@@ -49,25 +49,16 @@ def evaluate_mask(state, player:str) -> float:
     :param state: state to evaluate (instance of GameState)
     :param player: player to evaluate the state for (B or W)
     """
-    if state.is_terminal():
-        winner = state.winner()
+    board = state.get_board()
 
-        if winner == player:
-            return 1  
-        elif winner is None:
-            return 0
-        else:
-            return -1
-    else:
-        board = state.get_board()
+    player_value = 0
+    opponent_value = 0
+    for row in range(0, 8):
+        for col in range(0,8):
+            piece = state.board.tiles[row][col]
+            if piece == player:
+                player_value = player_value + EVAL_TEMPLATE[row][col]
+            elif piece != "." and piece != player:
+                opponent_value = opponent_value + EVAL_TEMPLATE[row][col]
 
-        player_value = 0
-        opponent_value = 0
-        for row in range(0, 8):
-            for col in range(0,8):
-                if board[row][col] == player:
-                    player_value = player_value + EVAL_TEMPLATE[row][col]
-                elif board[row][col] != "." and board[row][col] != player:
-                    opponent_value = opponent_value + EVAL_TEMPLATE[row][col]
-
-        return player_value - opponent_value
+    return player_value - opponent_value

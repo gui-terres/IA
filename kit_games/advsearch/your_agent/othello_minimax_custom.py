@@ -34,21 +34,11 @@ def evaluate_custom(state, player:str) -> float:
     :param state: state to evaluate (instance of GameState)
     :param player: player to evaluate the state for (B or W)
     """
-    if state.is_terminal():
-        winner = state.winner()
+    corners = [(0, 0), (0, 7), (7, 0), (7, 7)]
 
-        if winner == player:
-            return 1  
-        elif winner is None:
-            return 0
-        else:
-            return -1
-    else:
-        corners = [(0, 0), (0, 7), (7, 0), (7, 7)]
+    player_corners = 0
+    for corner in corners:
+        if state.board.tiles([corner[0]],[corner[1]]) == player:
+            player_corners = player_corners + 1
 
-        player_corners = 0
-        for corner in corners:
-            if state.get_board()[corner[0]][corner[1]] == player:
-                player_corners = player_corners + 1
-        
-        return player_corners
+    return player_corners
