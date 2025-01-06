@@ -4,6 +4,7 @@ from ..othello.gamestate import GameState
 from ..othello.board import Board
 from .minimax import minimax_move
 
+
 # Voce pode criar funcoes auxiliares neste arquivo
 # e tambem modulos auxiliares neste pacote.
 #
