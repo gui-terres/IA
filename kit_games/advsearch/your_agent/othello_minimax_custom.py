@@ -23,7 +23,7 @@ def make_move(state) -> Tuple[int, int]:
     # Remova-o e coloque uma chamada para o minimax_move (que vc implementara' no modulo minimax).
     # A chamada a minimax_move deve receber sua funcao evaluate como parametro.
 
-    return minimax_move(state, 10, evaluate_custom) 
+    return minimax_move(state, 5, evaluate_custom) 
 
 
 def evaluate_custom(state, player:str) -> float:
@@ -38,7 +38,8 @@ def evaluate_custom(state, player:str) -> float:
 
     player_corners = 0
     for corner in corners:
-        if state.board.tiles([corner[0]],[corner[1]]) == player:
+        x, y = corner
+        if state.board.tiles[x][y] == player:
             player_corners = player_corners + 1
 
     return player_corners

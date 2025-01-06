@@ -1,50 +1,55 @@
 import random
 from typing import Tuple, Callable
 
-
-
-def minimax_move(state, max_depth:int, eval_func:Callable) -> Tuple[int, int]:
+def minimax_move(state, max_depth: int, eval_func: Callable) -> Tuple[int, int]:
     """
-    Returns a move computed by the minimax algorithm with alpha-beta pruning for the given game state.
-    :param state: state to make the move (instance of GameState)
-    :param max_depth: maximum depth of search (-1 = unlimited)
-    :param eval_func: the function to evaluate a terminal or leaf state (when search is interrupted at max_depth)
-                    This function should take a GameState object and a string identifying the player,
-                    and should return a float value representing the utility of the state for the player.
-    :return: (int, int) tuple with x, y coordinates of the move (remember: 0 is the first row/column)
+    Calculates the optimal move using the minimax algorithm with alpha-beta pruning.
+
+    :param state: Current game state (instance of GameState).
+    :param max_depth: Maximum depth for the search (-1 for unlimited).
+    :param eval_func: Evaluation function to assess terminal or leaf states.
+                      This function takes a GameState object and the player identifier as arguments,
+                      and returns a float representing the utility of the state for the player.
+    :return: (int, int) tuple representing the x, y coordinates of the chosen move.
     """
+    current_player = state.player
+    _, best_move = max(state, float('-inf'), float('inf'), eval_func, max_depth, 0, current_player)
+    return best_move
 
-    def alpha_beta(state, depth, alpha, beta, maximizing_player):
+def max(state, alpha, beta, eval_func, max_depth, depth, player) -> Tuple[float, Tuple[int, int]]:
+    if state.is_terminal() or (max_depth != -1 and depth >= max_depth):
+        return eval_func(state, player), None
 
-        if all(cell == '.' for row in state.board.board for cell in row):
-            return (1, 1)  
-        if depth == 0 or state.is_terminal():
-            return eval_func(state, state.player)
+    max_value = float('-inf')
+    best_move = None
 
-        best_move = None
-        if maximizing_player:
-            max_eval = float('-inf')
-            for move in state.legal_moves():
-                new_state = state.next_state(move)
-                eval_value = alpha_beta(new_state, depth - 1, alpha, beta, False)
-                if eval_value > max_eval:
-                    max_eval = eval_value
-                    best_move = move
-                alpha = max(alpha, eval_value)
-                if beta <= alpha:
-                    break
-            return best_move if depth == max_depth else max_eval
-        else:
-            min_eval = float('inf')
-            for move in state.legal_moves():
-                new_state = state.next_state(move)
-                eval_value = alpha_beta(new_state, depth - 1, alpha, beta, True)
-                if eval_value < min_eval:
-                    min_eval = eval_value
-                    best_move = move
-                beta = min(beta, eval_value)
-                if beta <= alpha:
-                    break
-            return best_move if depth == max_depth else min_eval
+    for action in state.legal_moves():
+        successor = state.next_state(action)
+        value, _ = min(successor, alpha, beta, eval_func, max_depth, depth + 1, player)
+        if value > max_value:
+            max_value = value
+            best_move = action
+        alpha = max(alpha, max_value)
+        if alpha >= beta:
+            break   # poda beta
 
-    return alpha_beta(state, max_depth, float('-inf'), float('inf'), state.player == 'B')
+    return value, best_move
+
+def min(state, alpha, beta, eval_func, max_depth, depth, player) -> Tuple[float, Tuple[int, int]]:
+    if state.is_terminal() or (max_depth != -1 and depth >= max_depth):
+        return eval_func(state, player), None
+
+    min_value = float('inf')
+    best_move = None
+
+    for action in state.legal_moves():
+        successor = state.next_state(action)
+        value, _ = max(successor, alpha, beta, eval_func, max_depth, depth + 1, player)
+        if value < min_value:
+            min_value = value
+            best_move = action
+        beta = min(beta, min_value)
+        if beta <= alpha:
+            break   # poda alfa
+
+    return min_value, best_move

@@ -34,8 +34,8 @@ def utility(state, player:str) -> float:
     winner = state.winner()
 
     if winner == player:
-        return 1  
+        return 1
     elif winner is None:
         return 0  
     else:
-        return -1 
+        return -1
